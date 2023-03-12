@@ -8,8 +8,6 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -34,15 +32,10 @@ public class WebSecurityConfig {
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
-	@Bean
 	public UserDetailsService userDetailsService() {
 		UserDetails user =
 			 User.withUsername("user")
-				.password("$2a$10$iJAaEIeg9PGshTJhFAQb5efHOJ3/lhroe/Ndq8DkYhUfcObb19nIO") // pwd user
+				.password("{bcrypt}$2a$10$iJAaEIeg9PGshTJhFAQb5efHOJ3/lhroe/Ndq8DkYhUfcObb19nIO") // pwd user
 				.roles("USER")
 				.build();
 
