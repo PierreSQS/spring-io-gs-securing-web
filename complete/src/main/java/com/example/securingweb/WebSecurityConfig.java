@@ -18,19 +18,19 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-			.authorizeHttpRequests(requests -> requests
+	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+		httpSecurity
+			.authorizeHttpRequests()
 				.requestMatchers("/", "/home").permitAll()
 				.anyRequest().authenticated()
-			)
-			.formLogin(form -> form
+			.and()
+			.formLogin()
 				.loginPage("/login")
 				.permitAll()
-			)
+			.and()
 			.logout(LogoutConfigurer::permitAll);
 
-		return http.build();
+		return httpSecurity.build();
 	}
 
 	@Bean
