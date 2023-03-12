@@ -28,7 +28,7 @@ class SecuringWebApplicationTests {
 	void loginWithValidUserThenAuthenticated() throws Exception {
 		FormLoginRequestBuilder login = formLogin()
 			.user("user")
-			.password("password");
+			.password("user");
 
 		mockMvc.perform(login)
 			.andExpect(authenticated().withUsername("user"));
