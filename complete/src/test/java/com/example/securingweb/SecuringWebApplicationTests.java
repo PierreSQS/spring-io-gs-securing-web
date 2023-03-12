@@ -20,12 +20,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SecuringWebApplicationTests {
+class SecuringWebApplicationTests {
 	@Autowired
-	private MockMvc mockMvc;
+	MockMvc mockMvc;
 
 	@Test
-	public void loginWithValidUserThenAuthenticated() throws Exception {
+	void loginWithValidUserThenAuthenticated() throws Exception {
 		FormLoginRequestBuilder login = formLogin()
 			.user("user")
 			.password("password");
@@ -35,7 +35,7 @@ public class SecuringWebApplicationTests {
 	}
 
 	@Test
-	public void loginWithInvalidUserThenUnauthenticated() throws Exception {
+	void loginWithInvalidUserThenUnauthenticated() throws Exception {
 		FormLoginRequestBuilder login = formLogin()
 			.user("invalid")
 			.password("invalidpassword");
@@ -45,13 +45,13 @@ public class SecuringWebApplicationTests {
 	}
 
 	@Test
-	public void accessUnsecuredResourceThenOk() throws Exception {
+	void accessUnsecuredResourceThenOk() throws Exception {
 		mockMvc.perform(get("/"))
 			.andExpect(status().isOk());
 	}
 
 	@Test
-	public void accessSecuredResourceUnauthenticatedThenRedirectsToLogin() throws Exception {
+	void accessSecuredResourceUnauthenticatedThenRedirectsToLogin() throws Exception {
 		mockMvc.perform(get("/hello"))
 			.andExpect(status().is3xxRedirection())
 			.andExpect(redirectedUrlPattern("**/login"));
@@ -59,7 +59,7 @@ public class SecuringWebApplicationTests {
 
 	@Test
 	@WithMockUser
-	public void accessSecuredResourceAuthenticatedThenOk() throws Exception {
+	void accessSecuredResourceAuthenticatedThenOk() throws Exception {
 		MvcResult mvcResult = mockMvc.perform(get("/hello"))
 				.andExpect(status().isOk())
 				.andReturn();
